@@ -1,0 +1,64 @@
+# 主机列表与 SSH 配置信息
+# 请根据实际环境修改以下配置
+
+# SSH 默认配置
+ssh_defaults:
+  port: 22
+  username: root
+  # 认证方式：password 或 key
+  auth_type: key
+  # 如果使用密钥认证，指定私钥路径
+  key_file: ~/.ssh/id_rsa
+  # 如果使用密码认证，可以在这里设置（不推荐）
+  # password: your_password
+  # SSH 连接超时（秒）
+  timeout: 10
+
+# 主机列表
+hosts:
+  host0:
+    hostname: 192.168.1.10
+    # 可覆盖默认配置
+    # port: 2222
+    # username: admin
+    description: "Host 0 - 实验主机"
+
+  host1:
+    hostname: 192.168.1.11
+    description: "Host 1 - 实验主机"
+
+  host2:
+    hostname: 192.168.1.12
+    description: "Host 2 - 实验主机"
+
+  host3:
+    hostname: 192.168.1.13
+    description: "Host 3 - 实验主机"
+
+  host4:
+    hostname: 192.168.1.14
+    description: "Host 4 - 实验主机"
+
+  host5:
+    hostname: 192.168.1.15
+    description: "Host 5 - 实验主机"
+
+  host6:
+    hostname: 192.168.1.16
+    description: "Host 6 - 实验主机"
+
+  host7:
+    hostname: 192.168.1.17
+    description: "Host 7 - 实验主机"
+
+  host8:
+    hostname: 192.168.1.18
+    description: "Host 8 - 实验主机"
+
+# 要排除的接口名称模式（正则表达式）
+exclude_interfaces:
+  - "^lo$"           # loopback
+  - "^docker.*"      # Docker 虚拟接口
+  - "^veth.*"        # veth 接口
+  - "^br-.*"         # Docker bridge
+  - "^virbr.*"       # libvirt bridge
