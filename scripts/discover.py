@@ -191,9 +191,9 @@ def main():
     )
     parser.add_argument(
         "-f", "--format",
-        choices=["json", "text"],
+        choices=["json", "text", "ascii"],
         default="text",
-        help="Output format (default: text)"
+        help="Output format: text, ascii (visual diagram), or json (default: text)"
     )
     parser.add_argument(
         "--hosts",
@@ -219,7 +219,7 @@ def main():
     # Import here to allow --help to work without dependencies
     from ssh_client import SSHClientError
     from inventory import InventoryError
-    from output import to_json, to_text, format_issues
+    from output import to_json, to_text, to_ascii, format_issues
 
     try:
         # Run discovery
@@ -241,6 +241,15 @@ def main():
             print(f"\nDiscovered {len(topology.hosts)} hosts and {len(topology.links)} links")
             if issues:
                 print(format_issues(issues))
+
+        elif args.format == "ascii":
+            text = to_ascii(topology, issues)
+            if args.output:
+                with open(args.output, "w", encoding="utf-8") as f:
+                    f.write(text)
+                print(f"ASCII diagram written to {args.output}")
+            else:
+                print(text)
 
         else:  # text format
             text = to_text(topology, issues)
